@@ -1,6 +1,3 @@
-<?php
-include('header.tpl.php');
-?>
 <div class="auth_form">
 <form method="post" action="./">
     <label>Username:</label>
@@ -12,9 +9,6 @@ include('header.tpl.php');
 </form>
 </div>
 <form method="post" action="./">
-    <input type="hidden" name="action" value="register"/>
+    <input type="hidden" name="action" value="registration"/>
     <input type="submit" value="Register"/>
 </form>
-<?php
-include('footer.tpl.php');
-?>

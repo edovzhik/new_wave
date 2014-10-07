@@ -95,7 +95,7 @@ class Invite
             $handle->execute();
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
-                return $result->emlpoyee_id;
+                return $result->employee_id;
             }
         }
         return false;

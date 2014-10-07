@@ -1,6 +1,7 @@
 <?php
 require_once('core/database.class.php');
 require_once('models/department.class.php');
+require_once('helpers.php');
 
 class Employee
 {
@@ -40,13 +41,30 @@ class Employee
 
     public static function withUsername($username)
     {
-        if (isset($username) and $username > 0 and Database::connect()) {
+        if (isset($username) and Database::connect()) {
             $handle = Database::connect()->prepare('SELECT * FROM employees WHERE username = ?');
-            $handle->bindValue(1, $username, \PDO::PARAM_INT);
+            $handle->bindValue(1, $username);
             $handle->execute();
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
                 return new Employee($result->id);
+            }
+        }
+        return false;
+    }
+
+    public static function getAllEmployees()
+    {
+        if (Database::connect()) {
+            $handle = Database::connect()->prepare('SELECT * FROM employees');
+            $handle->execute();
+            $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+            if ($result) {
+                $all_employees = array();
+                foreach ($result as $row) {
+                    array_push($all_employees, new Employee($row->id));
+                }
+                return $all_employees;
             }
         }
         return false;
@@ -197,15 +215,16 @@ class Employee
         return false;
     }
 
-    public function setSessionHash($session_hash)
+    public function updateSessionHash()
     {
-        if (isset($this->id) and isset($session_hash) and strlen($session_hash) < 128) {
+        if (isset($this->id)) {
+            $session_hash = md5(generateRandomString());
             $handle = Database::connect()->prepare('UPDATE employees SET session_hash = ? WHERE id = ?');
             $handle->bindValue(1, $session_hash);
             $handle->bindValue(2, $this->id, \PDO::PARAM_INT);
             $handle->execute();
             if ($this->getSessionHash() === $session_hash) {
-                return true;
+                return $session_hash;
             }
         }
         return false;
