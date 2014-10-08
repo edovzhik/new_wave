@@ -1,6 +1,7 @@
 <?php
 require_once('controllers/auth.class.php');
 require_once('controllers/messenger.class.php');
+require_once('controllers/ajax.class.php');
 
 class Application
 {
@@ -16,6 +17,9 @@ class Application
                             Messenger::showHome();
                         }
                         break;
+                    case 'ajax_get_messages':
+                        echo Ajax::retrieveMessages();
+                        exit();
                     default:
                         Messenger::showHome();
                 }

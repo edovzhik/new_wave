@@ -5,7 +5,7 @@ class Message
 
     private $id;
 
-    public function __construct($id)
+    private function __construct($id)
     {
         $this->id = $id;
     }
@@ -34,6 +34,27 @@ class Message
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
                 return new Message($result->id);
+            }
+        }
+        return false;
+    }
+
+    public static function getCorrespondenceBetween($employee1_id, $employee2_id)
+    {
+        if (isset($employee1_id) and isset($employee2_id) and $employee1_id != $employee2_id and Employee::withId($employee1_id) and Employee::withId($employee2_id)) {
+            $handle = Database::connect()->prepare('SELECT * FROM messages WHERE ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) ORDER BY timestamp DESC');
+            $handle->bindValue(1, $employee1_id, \PDO::PARAM_INT);
+            $handle->bindValue(2, $employee2_id, \PDO::PARAM_INT);
+            $handle->bindValue(3, $employee2_id, \PDO::PARAM_INT);
+            $handle->bindValue(4, $employee1_id, \PDO::PARAM_INT);
+            $handle->execute();
+            $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+            if ($result) {
+                $messages = array();
+                foreach ($result as $row) {
+                    array_push($messages, new Message($row->id));
+                }
+                return $messages;
             }
         }
         return false;
@@ -68,6 +89,7 @@ class Message
             $handle->execute();
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
+                date_default_timezone_set('UTC');
                 return strtotime($result->timestamp);
             }
         }

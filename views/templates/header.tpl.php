@@ -6,6 +6,8 @@
         New Wave - Corporate Messaging
     </title>
     <link type="text/css" rel="stylesheet" href="assets/css/default_theme.css"/>
+    <script type="text/javascript" src="assets/javascript/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/new_wave.js"></script>
 </head>
 <body>
 <div class="header">

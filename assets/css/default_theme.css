@@ -13,8 +13,13 @@ body {
 }
 
 .content {
+    display: inline-block;
     height: 100%;
     width: 100%;
+}
+
+.content * {
+    float: left;
 }
 
 .header, .footer {
@@ -57,12 +62,45 @@ body {
 }
 
 .auth_form, .sign_up_form {
+    color: #ffffff;
+    background: #1f1f1f;
+    border: 1px solid #1f1f1f;
     position: relative;
-    width: 20em;
-    height: 15em;
+    width: 15em;
+    height: 10em;
     top: 50%;
     left: 50%;
-    margin: -7.5em 0 0 -10em;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+}
+
+.sign_up_form {
+    height: auto;
+}
+
+.auth_form form, .sign_up_form form {
+    width: 100%;
+}
+
+.auth_form input, .sign_up_form input {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.auth_form input[type=text], .auth_form input[type=password], .sign_up_form input[type=text], .sign_up_form input[type=password] {
+    margin: 1em 0;
+}
+
+.auth_form input[type=submit], .sign_up_form input[type=submit] {
+    border: 1px solid #ffffff;
+    margin: 2px 0;
+}
+
+.auth_form label, .sign_up_form label {
+    text-align: center;
+    width: 100%;
+    height: 1em;
 }
 
 .contacts_list {
@@ -77,4 +115,102 @@ body {
     overflow: hidden;
     overflow-y: scroll;
     margin: 0;
+    padding: 0 2px 0 0;
+}
+
+.contacts_list * {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    position: relative;
+    cursor: default;
+}
+
+.department_name {
+    background: #5784c8;
+    border: 1px solid #5784c8;
+    height: 3em;
+    line-height: 3em;
+    margin: 0 auto;
+}
+
+.department_name span {
+    margin: 0 2.5em 0 2em;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: auto;
+    white-space: nowrap;
+}
+
+.contact {
+    border: 1px solid #5784c8;
+    min-height: 3em;
+}
+
+.contact * {
+    cursor: pointer;
+}
+
+.contact:hover {
+    background: #90c5ff;
+}
+
+.contact .contact_name {
+    font-weight: bold;
+    white-space: nowrap;
+    width: auto;
+    margin: 0 2.5em 0 1em;
+}
+
+.contact .contact_title {
+    font-style: italic;
+    width: auto;
+    margin: 0 2.5em 0 1em;
+}
+
+.contacts_list button {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 2.5em;
+    margin: 0;
+    border: none;
+    border-left: 1px solid #1f1f1f;
+    cursor: pointer;
+}
+
+button img {
+    margin: auto;
+    vertical-align: middle;
+}
+
+.main {
+    width: 70%;
+    height: 100%;
+    margin: 0;
+}
+
+.welcome {
+    height: 100%;
+    width: 100%;
+}
+
+.welcome * {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    margin: 0;
+    transform: translate(-50%, -50%);
+}
+
+.error_message {
+    position: absolute;
+    z-index: 200;
+    width: 100%;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    background: #c82020;
 }
