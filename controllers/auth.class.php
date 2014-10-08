@@ -5,29 +5,21 @@ require_once('helpers.php');
 
 abstract class Auth
 {
-
     private static $error;
 
     public static function showLoginPage()
     {
         require('views/templates/header.tpl.php');
-        $error_message = self::getErrorMessage();
+        $error_message = self::$error;
         require('views/templates/error.tpl.php');
         require('views/auth.html.php');
         require('views/templates/footer.tpl.php');
     }
 
-    private static function getErrorMessage()
-    {
-        $error = self::$error;
-        self::$error = '';
-        return $error;
-    }
-
     public static function showRegistrationPage()
     {
         require('views/templates/header.tpl.php');
-        $error_message = Auth::getErrorMessage();
+        $error_message = self::$error;
         require('views/templates/error.tpl.php');
         require('views/register.html.php');
         require('views/templates/footer.tpl.php');
@@ -38,7 +30,9 @@ abstract class Auth
         $employee = Employee::withUsername($_POST['username']);
         if ($employee and $employee->getPassword() === md5($_POST['password'] . $employee->getSalt())) {
             setcookie('id', $employee->getId(), time() + 60 * 60 * 24);
+            $_COOKIE['id'] = $employee->getId();
             setcookie('hash', $employee->updateSessionHash(), time() + 60 * 60 * 24);
+            $_COOKIE['hash'] = $employee->getSessionHash();
             return true;
         } else {
             self::$error = 'Wrong Username or Password.';
@@ -85,7 +79,9 @@ abstract class Auth
                             $employee->setPassword(md5($_POST['password'] . $employee->getSalt()));
                             $invite->markAsUsed();
                             setcookie('id', $employee->getId(), time() + 60 * 60 * 24);
+                            $_COOKIE['id'] = $employee->getId();
                             setcookie('hash', $employee->updateSessionHash(), time() + 60 * 60 * 24);
+                            $_COOKIE['hash'] = $employee->getSessionHash();
                             return true;
                         } else {
                             self::$error = 'This username is already taken.';

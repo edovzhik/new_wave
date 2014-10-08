@@ -14,8 +14,8 @@ class Message
     {
         if (isset($subject) and isset($body) and isset($sender_id) and isset($receiver_id) and isset($is_departmental) and strlen($subject) < 256 and strlen($body) < 65000 and $receiver_id != $sender_id and Employee::withId($sender_id) and Employee::withId($receiver_id)) {
             $handle = Database::connect()->prepare('INSERT INTO messages (subject, body, sender_id, receiver_id, is_departmental, is_read) VALUES (?, ?, ?, ?, ?, 0)');
-            $handle->bindValue(1, $subject);
-            $handle->bindValue(2, $body);
+            $handle->bindValue(1, htmlentities($subject, ENT_QUOTES, 'UTF-8'));
+            $handle->bindValue(2, htmlentities($body, ENT_QUOTES, 'UTF-8'));
             $handle->bindValue(3, $sender_id, \PDO::PARAM_INT);
             $handle->bindValue(4, $receiver_id, \PDO::PARAM_INT);
             $handle->bindValue(5, $is_departmental ? 1 : 0, \PDO::PARAM_INT);

@@ -1,36 +1,51 @@
 <?php
-require_once 'controllers/auth.class.php';
+require_once('controllers/auth.class.php');
+require_once('controllers/messenger.class.php');
 
 class Application
 {
     public function __construct()
     {
-        if (isset($_POST['action'])) {
-            switch ($_POST['action']) {
-                case 'sign_up':
-                    if (!Auth::register() or !Auth::isAuthenticated()) {
-                        Auth::showRegistrationPage();
-                    } else {
-                        echo 'Main page'; //home stub
-                    }
-                    break;
-                case 'registration':
-                    Auth::showRegistrationPage();
-                    break;
-                case 'sign_in':
-                    if (!Auth::signIn() or !Auth::isAuthenticated()) {
-                        Auth::showLoginPage();
-                    } else {
-                        echo 'Main page'; //home stub
-                    }
-                    break;
+        if (Auth::isAuthenticated()) {
+            if (isset($_POST['action'])) {
+                switch ($_POST['action']) {
+                    case 'sign_out':
+                        if (Auth::signOut()) {
+                            Auth::showLoginPage();
+                        } else {
+                            Messenger::showHome();
+                        }
+                        break;
+                    default:
+                        Messenger::showHome();
+                }
+            } else {
+                Messenger::showHome();
             }
         } else {
-            if (Auth::isAuthenticated()) {
-                echo 'Main page'; //home stub
+            if (isset($_POST['action'])) {
+                switch ($_POST['action']) {
+                    case 'sign_in':
+                        if (Auth::signIn()) {
+                            Messenger::showHome();
+                        } else {
+                            Auth::showLoginPage();
+                        }
+                        break;
+                    case 'sign_up':
+                        if (Auth::register()) {
+                            Messenger::showHome();
+                        } else {
+                            Auth::showRegistrationPage();
+                        }
+                        break;
+                    case 'registration':
+                        Auth::showRegistrationPage();
+                        break;
+                    default:
+                        Auth::showLoginPage();
+                }
             } else {
-                setcookie('id', '', time() - 1);
-                setcookie('hash', '', time() - 1);
                 Auth::showLoginPage();
             }
         }

@@ -35,6 +35,23 @@ class Department
         return false;
     }
 
+    public static function getAllDepartments()
+    {
+        if (Database::connect()) {
+            $handle = Database::connect()->prepare('SELECT * FROM departments');
+            $handle->execute();
+            $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+            if ($result) {
+                $all_departments = array();
+                foreach ($result as $row) {
+                    array_push($all_departments, new Department($row->id));
+                }
+                return $all_departments;
+            }
+        }
+        return false;
+    }
+
     public function delete()
     {
         if (!isset($this->id)) {

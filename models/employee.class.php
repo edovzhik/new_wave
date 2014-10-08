@@ -70,6 +70,42 @@ class Employee
         return false;
     }
 
+    public static function getAllEmployeesExceptCurrent()
+    {
+        if (isset($_COOKIE['id']) and Database::connect()) {
+            $handle = Database::connect()->prepare('SELECT * FROM employees');
+            $handle->execute();
+            $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+            if ($result) {
+                $all_employees = array();
+                foreach ($result as $row) {
+                    if ($row->id !== $_COOKIE['id'])
+                        array_push($all_employees, new Employee($row->id));
+                }
+                return $all_employees;
+            }
+        }
+        return false;
+    }
+
+    public static function getAllEmployeesFromDepartmentWithId($department_id)
+    {
+        if (Department::withId($department_id) and Database::connect()) {
+            $handle = Database::connect()->prepare('SELECT * FROM employees WHERE department_id = ?');
+            $handle->bindValue(1, $department_id, \PDO::PARAM_INT);
+            $handle->execute();
+            $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+            if ($result) {
+                $all_departmental_employees = array();
+                foreach ($result as $row) {
+                    array_push($all_departmental_employees, new Employee($row->id));
+                }
+                return $all_departmental_employees;
+            }
+        }
+        return false;
+    }
+
     public function getId()
     {
         return isset($this->id) ? $this->id : false;
