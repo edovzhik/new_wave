@@ -131,7 +131,7 @@ class Invite
     public function markAsNotUsed()
     {
         if (isset($this->invite_code)) {
-            $handle = Database::connect()->prepare('UPDATE invites SET is_used = 1 WHERE invite_code = ?');
+            $handle = Database::connect()->prepare('UPDATE invites SET is_used = 0 WHERE invite_code = ?');
             $handle->bindValue(1, $this->invite_code);
             $handle->execute();
             if ($this->isUsed() === 1) {
