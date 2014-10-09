@@ -43,6 +43,6 @@
 </div>
 <div class="main">
     <div class="welcome">
-        <h1>Welcome, <?php $name = isset($current_user) ? explode(' ', $current_user->getName()) : array('Anonymous'); echo trim($name[0]);?>!</h1>
+        <h1>Welcome, <?php $name = isset($current_user) ? explode(' ', $current_user->getName()) : array('Anonymous'); echo $name[0];?>!</h1>
     </div>
 </div>

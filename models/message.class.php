@@ -42,7 +42,7 @@ class Message
     public static function getCorrespondenceBetween($employee1_id, $employee2_id)
     {
         if (isset($employee1_id) and isset($employee2_id) and $employee1_id != $employee2_id and Employee::withId($employee1_id) and Employee::withId($employee2_id)) {
-            $handle = Database::connect()->prepare('SELECT * FROM messages WHERE ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) ORDER BY timestamp DESC');
+            $handle = Database::connect()->prepare('SELECT * FROM messages WHERE ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) ORDER BY timestamp ASC');
             $handle->bindValue(1, $employee1_id, \PDO::PARAM_INT);
             $handle->bindValue(2, $employee2_id, \PDO::PARAM_INT);
             $handle->bindValue(3, $employee2_id, \PDO::PARAM_INT);

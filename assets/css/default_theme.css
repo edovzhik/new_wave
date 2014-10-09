@@ -2,6 +2,7 @@ html {
     height: calc(100% - 8em);
     width: 100%;
     margin: 0;
+    min-width: 800px;
 }
 
 body {
@@ -26,6 +27,7 @@ body {
     background: #1f1f1f;
     width: 100%;
     height: 4em;
+    min-width: 800px;
 }
 
 .footer {
@@ -34,10 +36,14 @@ body {
     position: fixed;
 }
 
-.footer span {
+.footer > span {
     float: right;
     margin-right: 3em;
     line-height: 4em;
+}
+
+#V {
+    cursor: pointer;
 }
 
 .header {
@@ -58,7 +64,17 @@ body {
 .account_panel {
     float: right;
     height: 100%;
-    width: 6em;
+    width: 17em;
+}
+
+.account_panel .user_details {
+    float: left;
+    height: 100%;
+    width: 70%;
+}
+
+.account_panel .log_out {
+    float: right;
 }
 
 .auth_form, .sign_up_form {
@@ -115,7 +131,7 @@ body {
     overflow: hidden;
     overflow-y: scroll;
     margin: 0;
-    padding: 0 2px 0 0;
+    padding: 0;
 }
 
 .contacts_list * {
@@ -129,7 +145,7 @@ body {
 
 .department_name {
     background: #5784c8;
-    border: 1px solid #5784c8;
+    border-bottom: 1px solid #5784c8;
     height: 3em;
     line-height: 3em;
     margin: 0 auto;
@@ -144,15 +160,15 @@ body {
 }
 
 .contact {
-    border: 1px solid #5784c8;
+    border-bottom: 1px solid #5784c8;
     min-height: 3em;
 }
 
-.contact * {
+.contacts_list .contact, .contacts_list .contact * {
     cursor: pointer;
 }
 
-.contact:hover {
+.contacts_list .contact:hover, .message_list .message:hover {
     background: #90c5ff;
 }
 
@@ -213,4 +229,158 @@ button img {
     line-height: 2em;
     text-align: center;
     background: #c82020;
+}
+
+.top_plank {
+    width: 100%;
+    display: inline-block;
+    min-height: 3em;
+    height: auto;
+    border-bottom: 2px solid #1f1f1f;
+}
+
+.section_two {
+    float: left;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.section_two .contact {
+    border: none;
+    line-height: 3em;
+}
+
+.section_two .contact .contact_title {
+    white-space: nowrap;
+}
+
+.section_two .message_details {
+    width: 100%;
+    height: 100%;
+}
+
+.message_details .subject {
+    margin: 5% 21% 5% 0;
+    text-align: justify;
+    display: block;
+    width: 79%;
+}
+
+.to, .from {
+    margin: 0 5% 5% 0;
+    width: 95%;
+}
+
+.label {
+    width: 30%;
+    font-weight: bold;
+    text-align: right;
+}
+
+.value {
+    width: 65%;
+    margin-left: 5%;
+    text-align: left;
+}
+
+.message_details .timestamp {
+    float: right;
+    margin-right: 5%;
+}
+
+.main .body {
+    text-align: justify;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0 1em;
+}
+
+.section_one {
+    float: left;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+}
+
+.section_one button {
+    display: block;
+    margin: 1em;
+}
+
+.message_list {
+    width: 100%;
+    height: calc(100% - 3em);
+    overflow: hidden;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0 2px 0 0;
+}
+
+.message_list .message {
+    width: 100%;
+    position: relative;
+    height: 3em;
+    border-bottom: 1px solid #1f1f1f;
+    float: left;
+    cursor: pointer;
+}
+
+.message .message_subject {
+    margin: 0 0 0 2em;
+    padding: 0 2em;
+    line-height: 3em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 17em);
+}
+
+.message .message_timestamp {
+    width: 10em;
+    height: 100%;
+    float: right;
+    line-height: 3em;
+    text-align: right;
+    margin: 0 3px 0 0;
+}
+
+.message .message_unread {
+    width: 3em;
+    height: 1em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #ff7369;
+    font-weight: bold;
+    font-size: 1em;
+    line-height: 1em;
+    text-align: center;
+    color: #ffffff;
+}
+
+.inbox, .outbox {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    top: 0;
+    left: 0;
+}
+
+.inbox {
+    background: no-repeat url('../images/inbox.png');
+    background-size: contain;
+}
+
+.outbox {
+    background: no-repeat url('../images/outbox.png');
+    background-size: contain;
+}
+
+.departmental {
+    background: #ffdd61;
+}
+
+.selected {
+    background: #b9deff;
 }

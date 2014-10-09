@@ -20,6 +20,12 @@ class Application
                     case 'ajax_get_messages':
                         echo Ajax::retrieveMessages();
                         exit();
+                    case 'ajax_send_message':
+                        echo Ajax::sendMessage();
+                        exit();
+                    case 'ajax_mark_as_read':
+                        echo Ajax::markAsRead();
+                        exit();
                     default:
                         Messenger::showHome();
                 }

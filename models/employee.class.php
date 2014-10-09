@@ -133,7 +133,7 @@ class Employee
             $handle->execute();
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
-                return $result->name;
+                return trim($result->name);
             }
         }
         return false;
