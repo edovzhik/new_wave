@@ -26,6 +26,9 @@ class Application
                     case 'ajax_mark_as_read':
                         echo Ajax::markAsRead();
                         exit();
+                    case 'ajax_get_unread':
+                        echo Ajax::getEmployeesWithUnread();
+                        exit();
                     default:
                         Messenger::showHome();
                 }

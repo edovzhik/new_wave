@@ -217,7 +217,7 @@ class Employee
             $handle->execute();
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
-                return $result->username;
+                return htmlentities($result->username, ENT_QUOTES, 'UTF-8');
             }
         }
         return false;

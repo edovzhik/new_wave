@@ -29,18 +29,26 @@ abstract class Ajax
         return false;
     }
 
-    public
-    static function sendMessage()
+    public static function  getEmployeesWithUnread()
+    {
+        if (isset($_COOKIE['id']))
+        {
+            return json_encode(Message::getUnreadForEmployeeWithId($_COOKIE['id']));
+        }
+        return false;
+    }
+
+    public static function sendMessage()
     {
         if (isset($_COOKIE['id']) and isset($_POST['receiver_id']) and isset($_POST['subject']) and isset($_POST['body']) and isset($_POST['is_departmental']) and $_POST['is_departmental'] ? Department::withId($_POST['receiver_id']) : Employee::withId($_POST['receiver_id'])) {
             $result = true;
             if ($_POST['is_departmental']) {
                 $receivers = Employee::getAllEmployeesFromDepartmentWithId($_POST['receiver_id']);
                 foreach ($receivers as $receiver) {
-                    $result = $result and Message::create($_POST['subject'], $_POST['body'], $_COOKIE['id'], $receiver->getId(), true);
+                    $result = ($result and Message::create($_POST['subject'], $_POST['body'], $_COOKIE['id'], $receiver->getId(), true));
                 }
             } else {
-                $result = $result and Message::create($_POST['subject'], $_POST['body'], $_COOKIE['id'], $_POST['receiver_id'], false);
+                $result = ($result and Message::create($_POST['subject'], $_POST['body'], $_COOKIE['id'], $_POST['receiver_id'], false));
             }
             return $result;
         }

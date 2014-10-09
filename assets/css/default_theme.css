@@ -80,10 +80,9 @@ body {
 .auth_form, .sign_up_form {
     color: #ffffff;
     background: #1f1f1f;
-    border: 1px solid #1f1f1f;
     position: relative;
     width: 15em;
-    height: 10em;
+    height: 11em;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -175,14 +174,16 @@ body {
 .contact .contact_name {
     font-weight: bold;
     white-space: nowrap;
-    width: auto;
     margin: 0 2.5em 0 1em;
 }
 
 .contact .contact_title {
     font-style: italic;
-    width: auto;
     margin: 0 2.5em 0 1em;
+}
+
+.contacts_list .contact_name, .contacts_list .contact_title {
+    width: calc(100% - 3.5em);
 }
 
 .contacts_list button {
@@ -196,7 +197,20 @@ body {
     cursor: pointer;
 }
 
+.contacts_list .has_unread .unread_mark {
+    display: block !important;
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 2em;
+    width: 1em;
+    height: 1em;
+    background: #c82020;
+}
+
 button img {
+    position: relative;
+    right: -2px;
     margin: auto;
     vertical-align: middle;
 }
@@ -265,21 +279,23 @@ button img {
     text-align: justify;
     display: block;
     width: 79%;
+    font-weight: bold;
+    font-size: 1em;
 }
 
 .to, .from {
-    margin: 0 5% 5% 0;
+    margin: 0 5% 1% 0;
     width: 95%;
 }
 
 .label {
-    width: 30%;
+    width: 10%;
     font-weight: bold;
     text-align: right;
 }
 
 .value {
-    width: 65%;
+    width: 85%;
     margin-left: 5%;
     text-align: left;
 }
@@ -290,7 +306,7 @@ button img {
 }
 
 .main .body {
-    text-align: justify;
+    text-align: left;
     overflow: hidden;
     overflow-y: auto;
     padding: 0 1em;
@@ -310,7 +326,7 @@ button img {
 
 .message_list {
     width: 100%;
-    height: calc(100% - 3em);
+    height: calc(100% - 3em - 4px);
     overflow: hidden;
     overflow-y: auto;
     margin: 0;
@@ -333,16 +349,17 @@ button img {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: calc(100% - 17em);
+    width: calc(100% - 22em);
 }
 
 .message .message_timestamp {
-    width: 10em;
+    width: 15em;
     height: 100%;
     float: right;
     line-height: 3em;
     text-align: right;
     margin: 0 3px 0 0;
+    white-space: nowrap;
 }
 
 .message .message_unread {
@@ -383,4 +400,95 @@ button img {
 
 .selected {
     background: #b9deff;
+}
+
+.no_messages {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    color: #1f1f1f;
+    background: #dddddd;
+    text-align: center;
+}
+
+.message_edit {
+    height: 90%;
+    width: 90%;
+    padding: 5%;
+}
+
+.message_edit .subject_edit {
+    width: 100%;
+    position: relative;
+}
+
+.subject_edit input {
+    width: 100%;
+}
+
+.message_edit .body_edit {
+    width: 100%;
+    position: relative;
+    height: calc(100% - 12em);
+    min-height: 6em;
+}
+
+.body_edit textarea {
+    width: 100%;
+    height: calc(100% - 5em);
+    resize: none;
+    overflow: hidden;
+    overflow-y: auto;
+    min-height: 3em;
+}
+
+.message_edit label {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    text-align: left;
+}
+
+.input_error {
+    position: absolute;
+    background: #b9deff;
+    border: 1px solid #5784c8;
+    color: #1f1f1f;
+    font-weight: bold;
+    height: 2em;
+    line-height: 2em;
+    top: 3px;
+    right: -7px;
+    padding: 0 1em;
+}
+
+.send_button {
+    position: relative;
+    right: -8px;
+    float: right;
+}
+
+.send_button button {
+    width: 12em;
+    height: 3em;
+    position: relative;
+    margin-top: 1em;
+}
+
+button.pending {
+    background: #dddddd;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+}
+
+button.success {
+    background: #c3ffc2;
+    color: #429343;
+    border: 1px solid #429343;
+}
+
+button.failed {
+    background: #f5c4b7;
+    color: #9d1d1d;
+    border: 1px solid #9d1d1d;
 }

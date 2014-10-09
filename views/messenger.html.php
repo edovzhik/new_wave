@@ -28,6 +28,8 @@
                         echo '<div class="contact_title">';
                         echo $contact->getTitle();
                         echo '</div>';
+                        echo '<div class="unread_mark" style="display: none;"/>';
+                        echo '</div>';
                         echo '<button type="button">';
                         echo '<img src="assets/images/send.png"/>';
                         echo '</button>';

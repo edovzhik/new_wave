@@ -14,8 +14,8 @@ class Message
     {
         if (isset($subject) and isset($body) and isset($sender_id) and isset($receiver_id) and isset($is_departmental) and strlen($subject) < 256 and strlen($body) < 65000 and $receiver_id != $sender_id and Employee::withId($sender_id) and Employee::withId($receiver_id)) {
             $handle = Database::connect()->prepare('INSERT INTO messages (subject, body, sender_id, receiver_id, is_departmental, is_read) VALUES (?, ?, ?, ?, ?, 0)');
-            $handle->bindValue(1, htmlentities($subject, ENT_QUOTES, 'UTF-8'));
-            $handle->bindValue(2, htmlentities($body, ENT_QUOTES, 'UTF-8'));
+            $handle->bindValue(1, $subject);
+            $handle->bindValue(2, $body);
             $handle->bindValue(3, $sender_id, \PDO::PARAM_INT);
             $handle->bindValue(4, $receiver_id, \PDO::PARAM_INT);
             $handle->bindValue(5, $is_departmental ? 1 : 0, \PDO::PARAM_INT);
@@ -56,6 +56,17 @@ class Message
                 }
                 return $messages;
             }
+        }
+        return false;
+    }
+
+    public static function getUnreadForEmployeeWithId($employee_id) {
+        if (isset($employee_id) and Employee::withId($employee_id)) {
+            $handle = Database::connect()->prepare('SELECT sender_id FROM messages WHERE (receiver_id = ? AND is_read = 0) ORDER BY sender_id ASC');
+            $handle->bindValue(1, $employee_id, \PDO::PARAM_INT);
+            $handle->execute();
+            $result = $handle->fetchAll(\PDO::FETCH_COLUMN);
+            return $result ? $result : false;
         }
         return false;
     }
@@ -118,7 +129,7 @@ class Message
             $handle->execute();
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
-                return $result->subject;
+                return htmlentities($result->subject, ENT_QUOTES, 'UTF-8');
             }
         }
         return false;
@@ -146,7 +157,7 @@ class Message
             $handle->execute();
             $result = $handle->fetch(\PDO::FETCH_OBJ);
             if ($result) {
-                return $result->body;
+                return htmlentities($result->body, ENT_QUOTES, 'UTF-8');
             }
         }
         return false;
